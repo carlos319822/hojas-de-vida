@@ -1,0 +1,7 @@
+{
+  "url-backend": "127.0.0.1",
+  "port": 9999,
+
+  "data-db-connection": "mongodb+srv://usuario-pruebas:wrEr5SeNvk1OtQ5j@cluster0.vudghua.mongodb.net/db-hojas-de-vida",
+  "name-db": "db-hojas-de-vida"
+}

@@ -1,5 +1,7 @@
 from Modelos.Formacion import Formacion
+from Modelos.Persona import Persona
 from Repositorios.RepositorioFormacion import RepositorioFormacion
+from Repositorios.RepositorioPersona import RepositorioPersona
 
 """
 Dentro de la clase se crean unos metodos, estos serán los encargados de manipular 
@@ -11,12 +13,15 @@ visualizar, modificar y eliminar. (CRUD)
 class ControladorFormacion():
     def __init__(self):
         self.repositorioFormacion = RepositorioFormacion()
+        self.repositorioPersona = RepositorioPersona()
 
     def index(self):
         return self.repositorioFormacion.findAll()
 
-    def create(self,infoFormacion):
+    def create(self,infoFormacion, id_persona):
         nuevaFormacion = Formacion(infoFormacion)
+        laPersona = Persona(self.repositorioPersona.findById(id_persona))
+        nuevaFormacion.persona = laPersona
         return self.repositorioFormacion.save(nuevaFormacion)
 
     def show(self, id):

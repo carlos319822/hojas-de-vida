@@ -5,6 +5,8 @@ from flask_cors import CORS
 import json
 from waitress import serve
 from Controladores.ControladorPersona import ControladorPersona
+from Controladores.ControladorFormacion import ControladorFormacion
+from Controladores.ControladorCargo import ControladorCargo
 
 
 app = Flask(__name__)
@@ -18,6 +20,8 @@ Implementacion de los controladores
 """
 
 miControladorPersona = ControladorPersona()
+miControladorFormacion = ControladorFormacion()
+miControladorCargo = ControladorCargo()
 """
 Servicios que el servidor ofrecerá; se definen las rutas
 y tipos de peticiones a las cuales el servidor responderá CRUD.
@@ -25,10 +29,12 @@ y tipos de peticiones a las cuales el servidor responderá CRUD.
 
 #########################Servicios Persona###################################
 
+
 @app.route("/personas",methods=['GET'])
 def getPersonas():
     json = miControladorPersona.index()
     return jsonify(json)
+
 
 @app.route("/personas",methods=['POST'])
 def crearPersona():
@@ -36,10 +42,12 @@ def crearPersona():
     json = miControladorPersona.create(data)
     return jsonify(json)
 
+
 @app.route("/personas/<string:id>",methods=['GET'])
 def getPersona(id):
     json = miControladorPersona.show(id)
     return jsonify(json)
+
 
 @app.route("/personas/<string:id>",methods=['PUT'])
 def modificarPersona(id):
@@ -47,12 +55,83 @@ def modificarPersona(id):
     json = miControladorPersona.update(id,data)
     return jsonify(json)
 
+
 @app.route("/personas/<string:id>",methods=['DELETE'])
 def eliminarPersona(id):
     json = miControladorPersona.delete(id)
     return jsonify(json)
 
 ##############################################################################
+
+
+############################Servicios fromacion#################################
+
+@app.route("/formacion", methods=['GET'])
+def getFormaciones():
+    json = miControladorFormacion.index()
+    return jsonify(json)
+
+
+@app.route("/formacion/<string:id>", methods=['GET'])
+def getFormacion(id):
+    json = miControladorFormacion.show(id)
+    return jsonify(json)
+
+
+@app.route("/formacion/persona/<string:id_persona>", methods=['POST'])
+def crearFormacion(id_persona):
+    data = request.get_json()
+    json = miControladorFormacion.create(data, id_persona)
+    return jsonify(json)
+
+
+@app.route("/formacion/<string:id>", methods=['PUT'])
+def modificarFormacion(id):
+    data = request.get_json()
+    json = miControladorFormacion.update(id, data)
+    return jsonify(json)
+
+
+@app.route("/formacion/<string:id>", methods=['DELETE'])
+def eliminarFormacion(id):
+    json = miControladorFormacion.delete(id)
+    return jsonify(json)
+
+##############################################################################
+
+
+############################Servicios cargo#################################
+
+@app.route("/cargo", methods=['GET'])
+def getCargos():
+    json = miControladorCargo.index()
+    return jsonify(json)
+
+
+@app.route("/cargo/<string:id>", methods=['GET'])
+def getCargo(id):
+    json = miControladorCargo.show(id)
+    return jsonify(json)
+
+
+@app.route("/cargo/persona/<string:id_persona>", methods=['POST'])
+def crearCargo(id_persona):
+    data = request.get_json()
+    json = miControladorCargo.create(data, id_persona)
+    return jsonify(json)
+
+
+@app.route("/cargo/<string:id>", methods=['PUT'])
+def modificarCargo(id):
+    data = request.get_json()
+    json = miControladorCargo.update(id, data)
+    return jsonify(json)
+
+
+@app.route("/cargo/<string:id>", methods=['DELETE'])
+def eliminarCargo(id):
+    json = miControladorCargo.delete(id)
+    return jsonify(json)
 
 """
 Servicio que el servidor ofrecerá, y este consiste en retornar un JSON el cual

@@ -78,10 +78,10 @@ def getFormacion(id):
     return jsonify(json)
 
 
-@app.route("/formacion/persona/<string:id_persona>", methods=['POST'])
-def crearFormacion(id_persona):
+@app.route("/formacion", methods=['POST'])
+def crearFormacion():
     data = request.get_json()
-    json = miControladorFormacion.create(data, id_persona)
+    json = miControladorFormacion.create(data)
     return jsonify(json)
 
 

@@ -1,27 +1,18 @@
 from Modelos.Formacion import Formacion
-from Modelos.Persona import Persona
 from Repositorios.RepositorioFormacion import RepositorioFormacion
-from Repositorios.RepositorioPersona import RepositorioPersona
-
-"""
-Dentro de la clase se crean unos metodos, estos serán los encargados de manipular 
-a los modelos, en estos se programarán las tareas básicas tales como crear, listar, 
-visualizar, modificar y eliminar. (CRUD)
-"""
 
 
 class ControladorFormacion():
     def __init__(self):
         self.repositorioFormacion = RepositorioFormacion()
-        self.repositorioPersona = RepositorioPersona()
+        print("Creando ControladorFormacion")
 
     def index(self):
         return self.repositorioFormacion.findAll()
 
-    def create(self,infoFormacion, id_persona):
-        nuevaFormacion = Formacion(infoFormacion)
-        laPersona = Persona(self.repositorioPersona.findById(id_persona))
-        nuevaFormacion.persona = laPersona
+    def create(self,laFormacion):
+        print("Crear una Formacion")
+        nuevaFormacion = Formacion(laFormacion)
         return self.repositorioFormacion.save(nuevaFormacion)
 
     def show(self, id):

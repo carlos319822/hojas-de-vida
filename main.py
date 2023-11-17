@@ -9,6 +9,7 @@ from Controladores.ControladorFormacion import ControladorFormacion
 from Controladores.ControladorCargo import ControladorCargo
 from Controladores.ControladorVacante import ControladorVacante
 from Controladores.ContraladorExperiencia import ControladorExperiencia
+from Controladores.ControladorCertificado import ControladorCertificado
 
 
 app = Flask(__name__)
@@ -26,6 +27,7 @@ miControladorFormacion = ControladorFormacion()
 miControladorCargo = ControladorCargo()
 miControladorVacante = ControladorVacante()
 micontroladorExperiencia = ControladorExperiencia()
+miControladorCertificado = ControladorCertificado()
 """
 Servicios que el servidor ofrecerá; se definen las rutas
 y tipos de peticiones a las cuales el servidor responderá CRUD.
@@ -207,6 +209,42 @@ def modificarExperiencia(id):
 @app.route("/experiencia/<string:id>",methods=['DELETE'])
 def eliminarExperiencia(id):
     json = micontroladorExperiencia.delete(id)
+    return jsonify(json)
+
+##############################################################################
+
+
+############################Servicios certificado#################################
+
+@app.route("/certificado",methods=['GET'])
+def getCertificados():
+    json = miControladorCertificado.index()
+    return jsonify(json)
+
+
+@app.route("/certificado",methods=['POST'])
+def crearCertificado():
+    data = request.get_json()
+    json = miControladorCertificado.create(data)
+    return jsonify(json)
+
+
+@app.route("/certificado/<string:id>",methods=['GET'])
+def getCertificado(id):
+    json = miControladorCertificado.show(id)
+    return jsonify(json)
+
+
+@app.route("/certificado/<string:id>",methods=['PUT'])
+def modificarCertificado(id):
+    data = request.get_json()
+    json = miControladorCertificado.update(id,data)
+    return jsonify(json)
+
+
+@app.route("/certificado/<string:id>",methods=['DELETE'])
+def eliminarCertificado(id):
+    json = miControladorCertificado.delete(id)
     return jsonify(json)
 """
 Servicio que el servidor ofrecerá, y este consiste en retornar un JSON el cual

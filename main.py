@@ -7,6 +7,8 @@ from waitress import serve
 from Controladores.ControladorPersona import ControladorPersona
 from Controladores.ControladorFormacion import ControladorFormacion
 from Controladores.ControladorCargo import ControladorCargo
+from Controladores.ControladorVacante import ControladorVacante
+from Controladores.ContraladorExperiencia import ControladorExperiencia
 
 
 app = Flask(__name__)
@@ -22,6 +24,8 @@ Implementacion de los controladores
 miControladorPersona = ControladorPersona()
 miControladorFormacion = ControladorFormacion()
 miControladorCargo = ControladorCargo()
+miControladorVacante = ControladorVacante()
+micontroladorExperiencia = ControladorExperiencia()
 """
 Servicios que el servidor ofrecerá; se definen las rutas
 y tipos de peticiones a las cuales el servidor responderá CRUD.
@@ -133,6 +137,77 @@ def eliminarCargo(id):
     json = miControladorCargo.delete(id)
     return jsonify(json)
 
+##############################################################################
+
+
+############################Servicios vacante#################################
+
+@app.route("/vacante",methods=['GET'])
+def getVacantes():
+    json = miControladorVacante.index()
+    return jsonify(json)
+
+
+@app.route("/vacante",methods=['POST'])
+def crearVacante():
+    data = request.get_json()
+    json = miControladorVacante.create(data)
+    return jsonify(json)
+
+
+@app.route("/vacante/<string:id>",methods=['GET'])
+def getVacante(id):
+    json = miControladorVacante.show(id)
+    return jsonify(json)
+
+
+@app.route("/vacante/<string:id>",methods=['PUT'])
+def modificarVacante(id):
+    data = request.get_json()
+    json = miControladorVacante.update(id,data)
+    return jsonify(json)
+
+
+@app.route("/vacante/<string:id>",methods=['DELETE'])
+def eliminarVacante(id):
+    json = miControladorVacante.delete(id)
+    return jsonify(json)
+
+##############################################################################
+
+
+############################Servicios experiencia#################################
+
+@app.route("/experiencia",methods=['GET'])
+def getExperiencias():
+    json = micontroladorExperiencia.index()
+    return jsonify(json)
+
+
+@app.route("/experiencia",methods=['POST'])
+def crearExperiencia():
+    data = request.get_json()
+    json = micontroladorExperiencia.create(data)
+    return jsonify(json)
+
+
+@app.route("/experiencia/<string:id>",methods=['GET'])
+def getExperiencia(id):
+    json = micontroladorExperiencia.show(id)
+    return jsonify(json)
+
+
+@app.route("/experiencia/<string:id>",methods=['PUT'])
+def modificarExperiencia(id):
+    data = request.get_json()
+    json = micontroladorExperiencia.update(id,data)
+    return jsonify(json)
+
+
+@app.route("/experiencia/<string:id>",methods=['DELETE'])
+def eliminarExperiencia(id):
+    json = micontroladorExperiencia.delete(id)
+    return jsonify(json)
 """
 Servicio que el servidor ofrecerá, y este consiste en retornar un JSON el cual
 tiene un mensaje que dice que el servidor está corriendo.
